@@ -2,17 +2,58 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActiveWeapon : MonoBehaviour
+public class ActiveWeapon : Singleton<ActiveWeapon>
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private MonoBehaviour currentActiveWeapon;
+
+    private PlayerControlls playerControlls;
+
+    private bool attackButtonDown, isAttacking = false;
+
+    protected override void Awake()
     {
-        
+        base.Awake();
+
+        playerControlls = new PlayerControlls();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        
+        playerControlls .Enable();
+    }
+
+    private void Start()
+    {
+        playerControlls.Combat.Attack.started += _ => StartAttacking();
+        playerControlls.Combat.Attack.canceled += _ => StopAttacking();
+    }
+
+    private void Update()
+    {
+        Attack();
+    }
+
+    public void ToggleIsAttacking(bool value)
+    {
+        isAttacking = value;
+    }
+
+    private void StartAttacking()
+    {
+        attackButtonDown = true;
+    }
+
+    private void StopAttacking()
+    {
+        attackButtonDown = false;
+    }
+
+    private void Attack()
+    {
+        if (attackButtonDown && !isAttacking)
+        {
+            isAttacking = true;
+            (currentActiveWeapon as IWeapon).Attack();
+        }
     }
 }
