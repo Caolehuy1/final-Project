@@ -18,6 +18,8 @@ GameObject:
   - component: {fileID: 6973830358182363749}
   - component: {fileID: 590958594784026952}
   - component: {fileID: -1449223687902762405}
+  - component: {fileID: 3791878738440997021}
+  - component: {fileID: 8283285678315147514}
   m_Layer: 0
   m_Name: Ghost
   m_TagString: Untagged
@@ -168,6 +170,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roamChangeDirFloat: 2
+  attackRange: 5
+  enemyType: {fileID: 3791878738440997021}
+  attackCooldown: 2
+  stopMovingWhileAttacking: 0
 --- !u!114 &4147568506920959808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,6 +241,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   knockBackTime: 0.2
+--- !u!114 &3791878738440997021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5438943349424584530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34260a9c118b5a544bb1af2ad1283cc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 4042688219813257761, guid: aef6fc30315f9d94fab6935d1e246dfb, type: 3}
+  bulletMoveSpeed: 6
+  burstCount: 1
+  projectilesPerBurst: 1
+  angleSpread: 0
+  startingDistance: 0.1
+  timeBetweenBursts: 0.3
+  restTime: 0.5
+--- !u!210 &8283285678315147514
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5438943349424584530}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &6869684277447359569
 GameObject:
   m_ObjectHideFlags: 0

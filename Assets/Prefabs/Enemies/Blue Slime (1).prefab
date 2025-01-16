@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 5940031917287145044}
   - component: {fileID: 1501543512375427606}
   - component: {fileID: 6842925439028699834}
+  - component: {fileID: 7208005164823660547}
   m_Layer: 0
   m_Name: Blue Slime (1)
   m_TagString: Untagged
@@ -34,7 +35,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4187448764255732735}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 10.09, y: 2.17, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -168,6 +169,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roamChangeDirFloat: 2
+  attackRange: 5
+  enemyType: {fileID: 7208005164823660547}
+  attackCooldown: 2
+  stopMovingWhileAttacking: 0
 --- !u!114 &4407476793290183250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,3 +299,23 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!114 &7208005164823660547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4187448764255732735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34260a9c118b5a544bb1af2ad1283cc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 4042688219813257761, guid: aef6fc30315f9d94fab6935d1e246dfb, type: 3}
+  bulletMoveSpeed: 0
+  burstCount: 0
+  projectilesPerBurst: 0
+  angleSpread: 0
+  startingDistance: 0.1
+  timeBetweenBursts: 0
+  restTime: 1
