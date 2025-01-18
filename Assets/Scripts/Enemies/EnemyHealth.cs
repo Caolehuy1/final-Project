@@ -14,7 +14,6 @@ public class EnemyHealth : MonoBehaviour
 
     private void Awake()
     {
-
         flash = GetComponent<Flash>();
         knockback = GetComponent<Knockback>();
     }
@@ -43,6 +42,7 @@ public class EnemyHealth : MonoBehaviour
         if (currentHealth <= 0)
         {
             Instantiate(deathVFXPrefab, transform.position, Quaternion.identity);
+            GetComponent<PickUpSpawner>().DropItems();
             Destroy(gameObject);
         }
     }

@@ -12,7 +12,7 @@ public class PlayerController : Singleton<PlayerController>
     [SerializeField] private TrailRenderer myTrailRenderer;
     [SerializeField] private Transform weaponCollider;
 
-    private PlayerControlls playerControlls;
+    private PlayerControlls playerControls;
     private Vector2 movement;
     private Rigidbody2D rb;
     private Animator myAnimator;
@@ -27,7 +27,7 @@ public class PlayerController : Singleton<PlayerController>
     {
         base.Awake();
 
-        playerControlls = new PlayerControlls();
+        playerControls = new PlayerControlls();
         rb = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
         mySpriteRender = GetComponent<SpriteRenderer>();
@@ -36,14 +36,21 @@ public class PlayerController : Singleton<PlayerController>
 
     private void Start()
     {
-        playerControlls.Combat.Dash.performed += _ => Dash();
+        playerControls.Combat.Dash.performed += _ => Dash();
 
         startingMoveSpeed = moveSpeed;
+
+        ActiveInventory.Instance.EquipStartingWeapon();
     }
 
     private void OnEnable()
     {
-        playerControlls.Enable();
+        playerControls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerControls.Disable();
     }
 
     private void Update()
@@ -64,7 +71,7 @@ public class PlayerController : Singleton<PlayerController>
 
     private void PlayerInput()
     {
-        movement = playerControlls.Movement.Move.ReadValue<Vector2>();
+        movement = playerControls.Movement.Move.ReadValue<Vector2>();
 
         myAnimator.SetFloat("moveX", movement.x);
         myAnimator.SetFloat("moveY", movement.y);
@@ -72,7 +79,7 @@ public class PlayerController : Singleton<PlayerController>
 
     private void Move()
     {
-        if (knockback.GettingKnockedBack) { return; }
+        if (knockback.GettingKnockedBack || PlayerHealth.Instance.isDead) { return; }
 
         rb.MovePosition(rb.position + movement * (moveSpeed * Time.fixedDeltaTime));
     }
@@ -96,8 +103,9 @@ public class PlayerController : Singleton<PlayerController>
 
     private void Dash()
     {
-        if (!isDashing)
+        if (!isDashing && Stamina.Instance.CurrentStamina > 0)
         {
+            Stamina.Instance.UseStamina();
             isDashing = true;
             moveSpeed *= dashSpeed;
             myTrailRenderer.emitting = true;
