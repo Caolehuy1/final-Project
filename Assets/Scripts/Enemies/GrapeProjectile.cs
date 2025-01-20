@@ -55,4 +55,25 @@ public class GrapeProjectile : MonoBehaviour
 
         Destroy(grapeShadow);
     }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        EnemyHealth enemyHealth = other.gameObject.GetComponent<EnemyHealth>();
+        Indestructible indestructible = other.gameObject.GetComponent<Indestructible>();
+        PlayerHealth player = other.gameObject.GetComponent<PlayerHealth>();
+
+        if (!other.isTrigger && (enemyHealth || indestructible || player))
+        {
+            if ((player ))
+            {
+                player?.TakeDamage(1, transform);
+               
+                Destroy(gameObject,1f);
+            }
+            else if (!other.isTrigger && indestructible)
+            {
+                
+                Destroy(gameObject,1f);
+            }
+        }
+    }
 }
